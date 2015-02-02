@@ -1,0 +1,22 @@
+{
+  "name": "nxcut",
+  "version": "1.0.0",
+  "description": "A cut-like command line tool for the N-Triples and N-Quads RDF formats",
+  "main": "./lib/nxcut.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha --reporter spec"
+  },
+  "keywords": [
+    "N-Triples",
+    "N-Quads",
+    "command",
+    "line",
+    "CLI"
+  ],
+  "author": "Johannes Schmitz",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^1.10.0",
+    "mocha": "^2.1.0"
+  }
+}

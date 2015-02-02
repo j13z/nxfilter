@@ -1,0 +1,18 @@
+{
+	"colorize": true,
+
+	"compactOutput": false,
+
+	"elementColors": {
+		// For positions
+		"subject":    "white",
+		"predicate":  "blue",
+		"object":     "green",
+		"graphLabel": "blue",
+
+		// For types
+		"literal": "yellow"
+	},
+
+	"delimiter": " "
+}

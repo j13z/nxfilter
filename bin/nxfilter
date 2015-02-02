@@ -1,0 +1,169 @@
+#!/usr/bin/env node
+'use strict';
+
+/**
+ * Command line interface for the `nxfilter` module.
+ *
+ * - Get an input stream
+ * - Provide an options object from arguments
+ * - Call `nxfilter`, listen for `line` events
+ * - Output results (add formatting)
+ */
+
+var NxFilter       = require('../lib/nxfilter');
+
+var loadDefaults   = require('../lib/cli/settings');
+var parseArguments = require('../lib/cli/args');
+var getInputStream = require('../lib/cli/input-stream');
+var messages       = require('../lib/cli/messages');
+var extend         = require('../lib/utility').extend;
+
+var path  = require('path');
+var chalk = require('chalk');
+
+
+
+// --- Arguments ---------------------------------------------------------------
+
+var defaults = loadDefaults(
+	'.nxfilterrc',
+	path.join(__dirname, '..', 'bin/defaults.json')
+);
+
+var args = Array.prototype.slice.call(process.argv, 2);
+
+try {
+	var options = extend(defaults, parseArguments(args));
+}
+catch (e) {
+	messages.printError(e.message);
+	messages.showUsage(1);
+}
+
+// Help
+if (options.wantsHelp) {
+	messages.showInfo();
+	messages.showUsage();
+	process.exit(0);
+}
+
+
+
+// --- Perform filtering -------------------------------------------------------
+
+new NxFilter(
+	getInputStream(options.filename),
+	options.filters
+)
+.on('line', function (elements) {
+
+	var transform = options.colorize ?
+	                colorizeElement :
+	                toValue;
+
+	var line = elements
+		.map(transform)
+		.filter(function (x) { return x !== null; })
+		.join(options.delimiter);
+
+	if (line.length > 0) {
+		process.stdout.write(line + '\n');
+	}
+})
+.on('error', function (error) {
+	console.log('error', error);
+});
+/*.on('end', function () {
+});*/
+
+
+
+// --- Map functions, access settings from outer scope -------------------------
+
+
+/**
+ * Converts an N-x element token into a string.
+ *
+ * @return {String}
+ */
+var toValue = (function () {
+
+	var protocolRegex = /^(.*?:\/\/)/;
+
+	var compact      = options.compactOutput >= 1;
+	var extraCompact = options.compactOutput === 2;
+
+
+	return function (element) {
+
+		// (`valueRaw` property may include unparsed Unicode literals, so re-add
+		// syntactic elements here instead.)
+
+		var value = element.value;
+
+		if (element.type === 'endOfStatement') {
+			return null;    // Don't display dots
+		}
+
+		// Literal: Quotes, shorten
+		else if (element.type === 'literal') {
+			var limit = options.literalLimit;
+			var needsShortening = limit && value.length > limit;
+			// (Length is not precise, due to Unicode surrogate pairs / ES5.)
+
+			if (needsShortening) {
+				value = value.slice(0, limit) + ' …';
+			}
+
+			if (!extraCompact) {
+				value = '"' + value + '"';
+
+				if (element.language) {
+					value += '@' + element.language;
+				}
+
+				if (element.datatypeIri) {
+					value += '^^<' + element.datatypeIri + '>';
+				}
+			}
+		}
+
+		// Blank node prefix
+		else if (element.type === 'blankNode' && !extraCompact) {
+			value = '_:' + value;
+		}
+
+		// IRI: Brackets, protocol
+		else if (element.type === 'iri') {
+			if (options.stripProtocol) {
+				value = value.replace(protocolRegex, '');
+			}
+
+			if (!compact) {
+				value = '<' + value + '>';
+			}
+		}
+
+		return value;
+	};
+})();
+
+
+
+/**
+ * @return {String} Colorized `value` of the `element`.
+ */
+function colorizeElement(element) {
+
+	var color = defaults.elementColors[element.type] ||
+	            defaults.elementColors[element.position];
+
+	var colorize = chalk[color];
+	var string = toValue(element);
+
+	if (colorize) {
+		string = colorize(string);
+	}
+
+	return string;
+}
