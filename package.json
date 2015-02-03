@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "A cut-like command line tool for the N-Triples and N-Quads RDF formats",
   "main": "./lib/nxcut.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/j13z/nxfilter.git"
+  },
   "scripts": {
     "test": "./node_modules/.bin/mocha --reporter spec"
   },
