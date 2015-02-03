@@ -13,14 +13,14 @@ A command line tool for filtering RDF N-Triples or N-Quads.
     curl -s http://dbpedia.org/data/Munich.ntriples | \
     nxfilter -p | sort | uniq -c | sort -n -r | head
     ```
-    
+
     ![screenshot](screenshot_query1.png)
 
 - Look at data files more conveniently in the terminal:
 
     ![screenshot](screenshot_colors.png)
 
-Like `cut` for N-x formats, plus some additional query features. 
+Like `cut` for N-x formats, plus some additional query features.
 
 You can filter by:
 
@@ -47,3 +47,13 @@ Get most frequent predicates (pipe):
 Output _(predicate, object)_ tuples where the object is a literal:
 
     nxfilter --predicate --object:literal data.nt.g
+
+
+
+## Installation
+
+Requires [Node.js](http://nodejs.org/) (which is easy to install). With Node.js installed, get it via npm with
+
+    $ npm install -g nxfilter
+
+which provides you with the `nxfilter` command on your shell, installed in user space.
