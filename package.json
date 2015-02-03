@@ -26,6 +26,7 @@
     "mocha": "^2.1.0"
   },
   "dependencies": {
+    "chalk": "^0.5.1",
     "rdf-nx-parser": "^1.0.1"
   }
 }
