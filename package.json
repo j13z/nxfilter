@@ -1,7 +1,7 @@
 {
   "name": "nxcut",
   "version": "1.0.0",
-  "description": "A cut-like command line tool for the N-Triples and N-Quads RDF formats",
+  "description": "A command line tool for filtering RDF N-Triples or N-Quads",
   "main": "./lib/nxcut.js",
   "repository": {
     "type": "git",
