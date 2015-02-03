@@ -7,8 +7,9 @@
  */
 
 var should = require('chai').should();
-var exec = require('child_process').exec;
-var path = require('path');
+var expect = require('chai').expect;
+var exec   = require('child_process').exec;
+var path   = require('path');
 
 
 var testFile = path.join('test', 'data', 'test-data.nq');
@@ -177,6 +178,7 @@ describe('CLI', function () {
 		it('should produce line-based JSON output', function (done) {
 			run([ arg, '-c', testFile ], function (lines) {
 				lines.length.should.equal(4);
+
 				var array = JSON.parse(lines[1]);
 				array.length.should.equal(5);
 
@@ -201,6 +203,14 @@ describe('CLI', function () {
 			});
 		});
 	});
+
+
+	it('should tell if it can\'t find a file', function (done) {
+		run([ 'not_there' ], null, function (error, stderr) {
+			stderr.should.contain('Cannot open file');
+			done();
+		});
+	});
 });
 
 
@@ -216,16 +226,20 @@ function describeArgs(args, f) {
 /**
  * Runs the script on the shell.
  */
-function run(args, callback) {
+function run(args, callback, errback) {
 
 	var command = path.join('bin', 'nxfilter') + ' ' + args.join(' ');
 
 	exec(command, function (error, stdout, stderr) {
 		if (error) {
-			error.stderr = stderr;
-			throw error;
+			if (errback) {
+				errback(error, stderr);
+			} else {
+				error.stderr = stderr;
+				throw error;
+			}
 		}
-		else {
+		else if (callback) {
 			callback(stdout.split('\n').slice(0, -1));
 		}
 	});
