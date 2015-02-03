@@ -48,33 +48,50 @@ if (options.wantsHelp) {
 }
 
 
+var inputStream;
+
+try {
+	inputStream = getInputStream(options.filename);
+} catch (e) {
+	messages.printError(e.message);
+	process.exit(1);
+}
+
+
 
 // --- Perform filtering -------------------------------------------------------
 
-new NxFilter(
-	getInputStream(options.filename),
-	options.filters
-)
-.on('line', function (elements) {
+var nxFilter = new NxFilter(inputStream, options.filters);
 
-	var transform = options.colorize ?
-	                colorizeElement :
-	                toValue;
+if (options.jsonOutput) {
+	// Output a JSON array per line
+	nxFilter.on('line', function (elements) {
+		process.stdout.write(JSON.stringify(elements) + '\n');
+	});
+}
+else {
+	nxFilter.on('line', function (elements) {
+		var line = elements
+			.map(options.colorize ? colorizeElement : toValue)
+			.filter(function (x) { return x !== null; })
+			.join(options.delimiter);
 
-	var line = elements
-		.map(transform)
-		.filter(function (x) { return x !== null; })
-		.join(options.delimiter);
-
-	if (line.length > 0) {
 		process.stdout.write(line + '\n');
-	}
-})
-.on('error', function (error) {
-	console.log('error', error);
+	});
+}
+
+nxFilter.on('error', function (error) {
+	messages.printError(error.message);
+	process.exit(1);
 });
-/*.on('end', function () {
-});*/
+
+
+// Make it work in a pipe when consumer stops reading (e.g `head`)
+process.stdout.on('error', function( err ) {
+	if (err.code === 'EPIPE') {
+		process.exit(0);
+	}
+});
 
 
 
