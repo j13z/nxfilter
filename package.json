@@ -1,6 +1,6 @@
 {
   "name": "nxfilter",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A command line tool for filtering RDF N-Triples or N-Quads",
   "bin": {
     "nxfilter": "./bin/nxfilter"
