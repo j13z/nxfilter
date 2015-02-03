@@ -1,0 +1,13 @@
+Examples:
+
+    Get predicates and objects as TSV:
+
+        {{script}} -p -o --delimiter '\t' data.nt.gz
+
+    Get most frequent predicates (pipe):
+
+        cat data.nt | {{script}} -p | sort | uniq -c | sort -n -r | head
+
+    Output (predicate, object) tuples where the object is a literal:
+
+        {{script}} --predicate --object:literal data.nt.g

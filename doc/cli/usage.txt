@@ -1,0 +1,22 @@
+Usage: {{script}} [filters] [options] [filename]
+
+    Reads input from stdin, if no filename is passed.
+
+Filters:
+
+    -s, --subject     -p, --predicate     -o, --object     -g, --graph
+
+    Modifiers: `=<value>` or `:<type>` (types: `iri`, `literal` or `bnode`)
+
+Options:                                                      default
+
+    -d,  --delimiter      Delimiter string for elements       [space]
+    -c,  --compact        Remove brackets from IRIs           [false]
+    -cc, --compact+       Extra compact, output only values   [false]
+    -np, --no-protocol    Remove protocols from IRIs          [false]
+    -nc, --no-colors      Disable colored output              [false]
+    -l,  --limit <n>      Limit literal output length         [no limit]
+    -j,  --json           Output JSON, line-based             [false]
+    -h,  --help           Show help and examples
+
+    Default settings and output colors can be specified in `~/.{{script}}rc`.
