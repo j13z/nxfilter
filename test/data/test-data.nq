@@ -1,0 +1,4 @@
+<http://example.com/s1> <http://example.com/p1> <http://example.com/o1> <http://example.com/g1> .
+_:s2 <http://example.com/p2> "o2" <http://example.com/g1> .
+_:s2 <http://example.com/p1> <http://example.com/o3> <http://example.com/g1> .
+<http://example.com/s3> <http://example.com/p2> "o4" <http://example.com/g2> .
