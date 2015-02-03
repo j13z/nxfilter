@@ -1,8 +1,11 @@
 {
-  "name": "nxcut",
+  "name": "nxfilter",
   "version": "1.0.0",
   "description": "A command line tool for filtering RDF N-Triples or N-Quads",
-  "main": "./lib/nxcut.js",
+  "bin": {
+    "nxfilter": "./bin/nxfilter"
+  },
+  "main": "./lib/nxfilter.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/j13z/nxfilter.git"
@@ -13,9 +16,8 @@
   "keywords": [
     "N-Triples",
     "N-Quads",
-    "command",
-    "line",
-    "CLI"
+    "command line",
+    "tool"
   ],
   "author": "Johannes Schmitz",
   "license": "ISC",
