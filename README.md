@@ -14,11 +14,11 @@ A command line tool for filtering RDF N-Triples or N-Quads.
     nxfilter -p | sort | uniq -c | sort -n -r | head
     ```
 
-    ![screenshot](screenshot_query1.png)
+    ![screenshot](doc/screenshots/query1.png)
 
 - Look at data files more conveniently in the terminal:
 
-    ![screenshot](screenshot_colors.png)
+    ![screenshot](doc/screenshots/colors.png)
 
 Like `cut` for N-x formats, plus some additional query features.
 
