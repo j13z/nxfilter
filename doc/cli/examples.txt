@@ -10,4 +10,4 @@ Examples:
 
     Output (predicate, object) tuples where the object is a literal:
 
-        {{script}} --predicate --object:literal data.nt.g
+        {{script}} --predicate --object:literal data.nt.gz
