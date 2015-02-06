@@ -1,6 +1,9 @@
 # nxfilter
 
+
 A command line tool for filtering RDF N-Triples or N-Quads.
+
+![](https://travis-ci.org/j13z/nxfilter.svg?branch=master)
 
 
 ## Usage
