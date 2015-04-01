@@ -60,3 +60,8 @@ Requires [Node.js](http://nodejs.org/) (which is easy to install). With Node.js 
     $ npm install -g nxfilter
 
 which provides you with the `nxfilter` command on your shell, installed in user space.
+
+
+## Change Log
+
+- **1.0.6:** Fixes `nxfilter -h` bug
