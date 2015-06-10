@@ -22,11 +22,11 @@
   "author": "Johannes Schmitz",
   "license": "ISC",
   "devDependencies": {
-    "chai": "^1.10.0",
-    "mocha": "^2.1.0"
+    "chai": "*",
+    "mocha": "*"
   },
   "dependencies": {
     "chalk": "^1.0.0",
-    "rdf-nx-parser": "^1.0.1"
+    "rdf-nx-parser": "^1.0.2"
   }
 }
