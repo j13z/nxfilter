@@ -1,2 +1,5 @@
-doc/screenshots
-test
+doc/screenshots/
+test/
+.jshintrc
+.travis.yml
+
