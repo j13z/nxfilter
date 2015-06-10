@@ -3,7 +3,8 @@
 
 A command line tool for filtering RDF N-Triples or N-Quads.
 
-![](https://travis-ci.org/j13z/nxfilter.svg?branch=master)
+[![](https://badge.fury.io/js/nxfilter.svg)](https://www.npmjs.com/package/nxfilter) &ensp; [![](https://travis-ci.org/j13z/nxfilter.svg?branch=master)](https://travis-ci.org/j13z/nxfilter/builds)
+
 
 
 ## Usage
