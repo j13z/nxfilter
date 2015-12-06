@@ -22,6 +22,11 @@ A command line tool for filtering RDF N-Triples or N-Quads.
 
 - Look at data files more conveniently in the terminal:
 
+    ```shell
+    curl -s 'http://dbpedia.org/data/Cut_(Unix).ntriples' | tail +10 | head -n 15 | \
+    nxfilter -p -o --compact --no-protocol --limit 28
+    ```
+
     ![screenshot](doc/screenshots/colors.png)
 
 Like `cut` for N-x formats, plus some additional query features.
